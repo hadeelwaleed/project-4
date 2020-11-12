@@ -35,8 +35,14 @@ const createNewArticle = (req, res) => {
 const changeArticleTitleById =(req,res)=>{
     console.log("changeArticleTitleById");
     console.log("REQ.PARAMS", req.params);
-   console.log('ID',req.params.id);
-}
+   console.log('ID:',req.params.id);
+   for (let i = 0; i < articles.length; i++) {
+    if(articles[i].id == req.params.id){
+    articles[i].title=req.params.newTitle
+    }
+    }
+    res.json(articles)
+    };
 
 
 /*const changeArticleAuthor = (req, res) => {
