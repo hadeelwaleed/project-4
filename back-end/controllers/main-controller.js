@@ -1,4 +1,4 @@
-const articles = [
+let articles = [
   {
     id: 1,
     title: "eat fried chicken",
@@ -19,7 +19,6 @@ const articles = [
   },
 ];
 let last_ID = 7;
-
 
 const getAllArticles = (req, res) => {
   console.log("getAllArticles");
@@ -45,29 +44,43 @@ const changeArticleTitleById = (req, res) => {
   res.json(articles);
 };
 
-const changeArticleAuthor = (req, res) => {
-  console.log(changeArticleAuthor);
+const changeArticleAuthorById = (req, res) => {
+  console.log("changeArticleAuthor");
   console.log("REQ.PARAMS", req.params);
   console.log("ID:", req.params.id);
-  console.log("REQ.BODY", req.body);
-  req.body.id = newAuthor;
-  res.json(articles.id);
+  console.log("REQ.BODY", req.body.newAuthor);
+  for (let i = 0; i < articles.length; i++) {
+    if (articles[i].id == req.params.id) {
+      articles[i].author = req.body.newAuthor;
+    }
+  }
+  res.json(articles);
 };
 const deleteArticleById = (req, res) => {
-  console.log(deleteArticleById);
+  console.log("deleteArticleById");
   console.log("ID:", req.params.id);
-
-  res.json();
+  // الاندكس تاع المستخدم يلي بفلتر عليه ............... الاليمنت يلي بفلتره
+  articles = articles.filter((elem, index) => {
+    //هون انا بدي اخلي ال اي دي يلي ما بتساوي ال اي دي يلي دخلها المستخدم وبضيفهم على الاري يلي كانت عندي
+    return req.params.id != elem.id;
+  });
+  console.log(articles);
+  res.json(articles);
 };
+
 const deleteArticleByAuthor = (req, res) => {
-  console.log(deleteArticleByAuthor);
+  console.log("deleteArticleByAuthor");
   console.log("REQ.BODY", req.body);
-  res.json();
+  res.json(articles);
+  articles = articles.filter((elem, index) => {
+    return req.params.author != elem.author;
+  });
+  console.log(articles);
 };
 module.exports = {
   getAllArticles,
   createNewArticle,
-  changeArticleAuthor,
+  changeArticleAuthorById,
   changeArticleTitleById,
   deleteArticleById,
   deleteArticleByAuthor,
