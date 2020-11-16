@@ -34,7 +34,7 @@ let last_ID = 7;
 // 1
 const getAllArticles = (req, res) => {
   console.log("getAllArticles done");
-  const sqlCommand = `SELECT * FROM articles`;
+  const sqlCommand = `SELECT * FROM articles WHERE is_deleted = 0`;
   connection.query(sqlCommand, (err, result) => {
     if (err) throw err;
     console.log("RESULT: ", result);
@@ -88,30 +88,29 @@ const changeArticleAuthorById = (req, res) => {
     res.json(result);
   });
 };
-// 5 hard delete
-// const deleteArticleById = (req, res) => {
-//   console.log(" done");
-//   const sqlCommand = `DELETE FROM articles WHERE 
-// id = "${req.params.id}";`;
-//   connection.query(sqlCommand, (err, result) => {
-//     if (err) throw err;
-//     console.log("RESULT: ", result);
-//     res.json(result);
-//   });
-// };
+/*5 hard delete
+const deleteArticleById = (req, res) => {
+  console.log(" done");
+  const sqlCommand = `DELETE FROM articles WHERE 
+id = "${req.params.id}";`;
+  connection.query(sqlCommand, (err, result) => {
+    if (err) throw err;
+    console.log("RESULT: ", result);
+    res.json(result);
+  });
+};*/
 
-// 6 hard delet
-// const deleteArticleByAuthor = (req, res) => {
-//   console.log(" deleteArticleByAuthor done");
-//   const sqlCommand = `DELETE FROM articles 
-//   WHERE author = "${req.body.author}"`;
-//   connection.query(sqlCommand, (err, result) => {
-//     if (err) throw err;
-//     console.log("RESULT: ", result);
-//     res.json(result);
-//   });
-// };
-// 5 soft delet
+/*6 hard delet
+const deleteArticleByAuthor = (req, res) => {
+  console.log(" deleteArticleByAuthor done");
+  const sqlCommand = `DELETE FROM articles 
+  WHERE author = "${req.body.author}"`;
+  connection.query(sqlCommand, (err, result) => {
+    if (err) throw err;
+    console.log("RESULT: ", result);
+    res.json(result);
+  });
+};*/
 
 // 5 soft delet (we do update)
 const deleteArticleById = (req, res) => {
@@ -125,21 +124,16 @@ const deleteArticleById = (req, res) => {
     res.json(result);
   });
 };
-//  6 hard delete (we do update)
+//  6 soft delete (we do update)
 const deleteArticleByAuthor = (req, res) => {
   console.log(" deleteArticleByAuthor done");
-  const sqlCommand = `UPDATE articles
-  SET is_deleted = 1
-  WHERE author = "${req.body.author}"`;
+  const sqlCommand =`UPDATE articles SET is_deleted = 1 WHERE author = "${req.body.author}"`;
   connection.query(sqlCommand, (err, result) => {
     if (err) throw err;
     console.log("RESULT: ", result);
     res.json(result);
   });
 };
-
-
-
 
 // غيرنا اسم الفنكشن عشان بدنا نشتغل mysql
 // 1
@@ -193,7 +187,7 @@ const deleteArticleById_express = (req, res) => {
   res.json(articles);
 };
 // 6
-const deleteArticleByAuthor_express  = (req, res) => {
+const deleteArticleByAuthor_express = (req, res) => {
   console.log("deleteArticleByAuthor");
   console.log("REQ.BODY", req.body);
 
