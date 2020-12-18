@@ -6,6 +6,7 @@ import axios from "axios";
 import {BrowserRouter,Route,Switch,Redirect}from'react-router-dom';
 import Login from "./components/login";
 import Home from "./components/home";
+import SignUp from "./components/signup";
 // import SignUp from "./components/signup";
 
 
@@ -65,6 +66,8 @@ const App = (props) => {
         </Route>
         <Route path="/login" component={Login} />
         <Route path="/home" component={Home} /> 
+        <Route path="/signup" component={SignUp} />
+
       </Switch>
     </BrowserRouter>
   );
