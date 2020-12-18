@@ -1,0 +1,21 @@
+.app {
+  border: solid rgb(0, 66, 128) 10px;
+}
+.new-item {
+  border: solid rgb(0, 162, 255) 8px;
+}
+.article-list {
+  border: solid rgb(22, 22, 22) 2px;
+}
+.article-item {
+  border: solid rgb(197, 23, 104) 5px;
+}
+.author {
+  font-style: italic;
+  font-weight: bold;
+} 
+
+/* div {
+  border: solid black 1px;
+} */
+/* don't forget to do line through */

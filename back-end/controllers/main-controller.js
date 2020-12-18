@@ -127,7 +127,7 @@ const deleteArticleById = (req, res) => {
 //  6 soft delete (we do update)
 const deleteArticleByAuthor = (req, res) => {
   console.log(" deleteArticleByAuthor done");
-  const sqlCommand =`UPDATE articles SET is_deleted = 1 WHERE author = "${req.body.author}"`;
+  const sqlCommand = `UPDATE articles SET is_deleted = 1 WHERE author = "${req.body.author}"`;
   connection.query(sqlCommand, (err, result) => {
     if (err) throw err;
     console.log("RESULT: ", result);
@@ -197,6 +197,30 @@ const deleteArticleByAuthor_express = (req, res) => {
   console.log(articles);
   res.json(articles);
 };
+// login
+// read data username & password
+// get data from database based on username
+// compare between data
+// true password&username correct
+// false password&username not correct
+
+const login = (req, res) => {
+  const data = [req.body.userName, req.body.password];
+  const sqlCommand = `SELECT * FROM user WHERE userName = '${data[0]}';`;
+  connection.query(sqlCommand, (err, result) => {
+    if (err) throw err;
+    res.json(result[0] ? result[0].password === data[1] : false);
+  });
+};
+// signup
+const signUp = (req, res) => {
+  const data = [req.body.userName, req.body.password, req.body.email];
+  const sqlCommand = `INSERT INTO user (userName, password, email) VALUES ('${data[0]}','${data[1]}','${data[2]}')`;
+  connection.query(sqlCommand, data, (err, result, field) => {
+    if (err) throw err;
+    res.json(result);
+  });
+};
 
 module.exports = {
   getAllArticles,
@@ -205,4 +229,6 @@ module.exports = {
   changeArticleTitleById,
   deleteArticleById,
   deleteArticleByAuthor,
+  login,
+  signUp,
 };
